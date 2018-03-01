@@ -1,22 +1,25 @@
 console.log('Starting app.js');
 
 const fs = require('fs');
-const os = require('os');
 const _ = require('lodash');
+const yargs = require('yargs');
+
 const notes = require('./notes.js');
 
-var filteredArray = _.uniq(['pth2mn', 1, 'pth2mn', 2, 3, 4]);
-console.log(filteredArray);
+var command = process.argv[2];
+console.log(`Command: ${command}`);
 
-// var res = notes.addNote();
-// console.log(res);
-// console.log(notes.add(9, -2));
+console.log(yargs.argv);
+const argv = yargs.argv;
 
-// var user = os.userInfo();
-// console.log(user.username);
-//
-// fs.appendFile('greetings.txt', `hello ${user.username}! You are ${notes.age}.`, function(err){
-//   if(err){
-//     console.log('unable to write file: ' + err);
-//   }
-// });
+if(command === 'add'){
+  notes.addNote(argv.title, argv.body);
+}else if(command === 'remove'){
+  notes.removeNote(argv.title);
+}else if(command ==='list'){
+  notes.getAll();
+}else if (command ==='read'){
+  notes.getNote(argv.title);
+}else{
+  console.log('Your princess is in a different castle.');
+}
