@@ -1,0 +1,18 @@
+{
+  "bundleDependencies": false,
+  "dependencies": {
+    "eslint": "4.12.1",
+    "eslint-config-airbnb-base": "12.1.0",
+    "eslint-plugin-import": "2.8.0"
+  },
+  "deprecated": false,
+  "description": "ESLint Config",
+  "devDependencies": {},
+  "license": "ISC",
+  "main": "index.js",
+  "name": "eslint-config-base",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.1.0"
+}

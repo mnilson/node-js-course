@@ -19,5 +19,9 @@
   "dependencies": {
     "lodash": "^4.17.5",
     "yargs": "^4.7.1"
+  },
+  "devDependencies": {
+    "@michael/eslint-config-base": "file:../../../Downloads/eslint-config-base/eslint-config-base",
+    "eslint-config-base": "file:eslint-config-base"
   }
 }
