@@ -1,11 +1,50 @@
 const request = require('request');
+const yargs = require('yargs');
+const geocode = require('./geocode/geocode.js');
+const weather = require('./weather/weather.js');
 
-request({
-    url: 'https://maps.googleapis.com/maps/api/geocode/json?address=27+oneil+cres+Saskatoon+sk&key=AIzaSyCWg_-FvQ8WQx9zoQubzC6lvwSnU22OTUg',
-    json: true
-}, (error, response, body) => {
-    // console.log(JSON.stringify(body, undefined, 3));
-    console.log(`ADdress: ${body.results[0].formatted_address}`);
-    console.log(`Lattitude: ${body.results[0].geometry.location.lat}`);
-    console.log(`Longitude: ${body.results[0].geometry.location.lng}`);
+const argv = yargs
+    .options({
+        a: {
+            demand: true,
+            alias: 'address',
+            describe: 'Address to fetch weather for.',
+            string: true
+        }
+    })
+    .help()
+    .alias('help', 'h')
+    .argv;
+
+geocode.geocodeAddress(argv.a, (errorMessage, results) => {
+    if (errorMessage) {
+        console.log(errorMessage);
+    } else {
+        console.log(JSON.stringify(results, undefined, 2));
+        // 37.8267,-122.4233
+
+        weather.getWeather(results.lattitude, results.longitude, (weatherErr, weatherResults) => {
+            if (weatherErr) {
+                console.log(weatherErr);
+            } else {
+                console.log(`It's currently ${weatherResults.temperature} ${weatherResults.units} and ${weatherResults.summary}. It feels like ${weatherResults.apparentTemperature}.`);
+            }
+        });
+    }
+});
+
+const geocodePromise = new Promise((resolve, reject) => {
+    geocode.geocodeAddress(argv.a, (errorMessage, results) => {
+        if (errorMessage) {
+            reject(errorMessage);
+        } else {
+            resolve(results.lattitude, results.longitude);
+        }
+    });
+});
+
+geocodePromise.then((message) => {
+    console.log(`Success: ${message}`);
+}, (errorMessage) => {
+    console.log(errorMessage);
 });
