@@ -38,13 +38,14 @@ const geocodePromise = new Promise((resolve, reject) => {
         if (errorMessage) {
             reject(errorMessage);
         } else {
+            console.log(`here: ${results.lattitude} ${results.longitude}`);
             resolve(results.lattitude, results.longitude);
         }
     });
 });
 
-geocodePromise.then((message) => {
-    console.log(`Success: ${message}`);
-}, (errorMessage) => {
+geocodePromise.then((lattitude, longitude) => {
+    console.log(`Success: ${lattitude} ${longitude}`);
+}).catch((errorMessage) => {
     console.log(errorMessage);
 });
