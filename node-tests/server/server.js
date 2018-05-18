@@ -10,13 +10,13 @@ app.get('/', (req, res) => {
 app.get('/users', (req, res) => {
   res.send([
     {
-      name: 'Michael',
+      name: 'Alpha',
       age: '36'
     },{
-      name: 'Alison',
+      name: 'Omega',
       age: '29'
     },{
-      name: 'Arya',
+      name: 'Beta',
       age: '0.5'
     }
   ]);
