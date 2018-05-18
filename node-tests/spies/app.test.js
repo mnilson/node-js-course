@@ -11,8 +11,8 @@ describe('App', () => {
 
   it('Should call the spy correctly', () => {
     var spy = expect.createSpy();
-    spy('Andrew');
-    expect(spy).toHaveBeenCalledWith('Andrew');
+    spy('foo');
+    expect(spy).toHaveBeenCalledWith('foo');
   });
 
   it('should call saveUser with user object', () => {
@@ -20,6 +20,7 @@ describe('App', () => {
     var password = '123abc';
 
     app.handleSignup(email, password);
+    expect(db.saveUser).toHaveBeenCalledWith({email, password});
   });
 
 });
