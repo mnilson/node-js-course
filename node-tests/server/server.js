@@ -7,9 +7,6 @@ app.get('/', (req, res) => {
   res.send('hello world');
 });
 
-// GET /users
-// Give users a name, age
-// create 2 -3 users, return as an array.
 app.get('/users', (req, res) => {
   res.send([
     {
