@@ -32,10 +32,9 @@ describe('POST /todos', ()=>{
   });
 
   it('should create a new todo', (done) => {
-    var text = '';
     request(app)
       .post('/todos')
-      .send({text})
+      .send({})
       .expect(400)
       .end((err, res) => {
         if(err){
