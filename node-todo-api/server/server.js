@@ -24,7 +24,7 @@ app.post('/todos', (req, resp) => {
 app.get('/todos', (req, resp) => {
   // var result = JSON.stringify(Todo.find());
   Todo.find().then((todos) => {
-    resp.send(todos);
+    resp.send({todos});
   }, (e)=>{
     resp.status(400);
   });
@@ -39,8 +39,9 @@ app.get('/todos/:id', (req, resp) => {
   Todo.findById(id).then((todo) => {
     if(!todo){
       resp.status(404).send();
+      return;
     }
-    resp.send(todo);
+    resp.send({todo});
   }, (e) => {
     resp.status(400).send();
   });
