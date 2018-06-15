@@ -21,8 +21,12 @@ app.post('/todos', (req, resp) => {
 });
 
 app.get('/todos', (req, resp) => {
-  var result = JSON.stringify(Todo.find());
-  resp.send(result);
+  // var result = JSON.stringify(Todo.find());
+  Todo.find().then((todos) => {
+    resp.send(todos);
+  }, (e)=>{
+    resp.status(400);
+  });
 });
 
 app.listen(3000, () => {
